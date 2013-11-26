@@ -56,21 +56,21 @@ let s:supported_arguments = [ 'filetype', 'folding', 'update' ]
 " Rename the cache directory if its name is still old, dotted style name.
 " See http://d.hatena.ne.jp/tyru/20110824/unite_file_mru
 "
-let old_cache_dir = g:unite_data_directory . '/.outline'
+let s:old_cache_dir = g:unite_data_directory . '/.outline'
 if isdirectory(s:OUTLINE_CACHE_DIR)
-  if isdirectory(old_cache_dir) 
+  if isdirectory(s:old_cache_dir)
     call unite#print_message("[unite-outline] Warning: Please remove the old cache directory: ")
-    call unite#print_message("[unite-outline] " . old_cache_dir)
+    call unite#print_message("[unite-outline] " . s:old_cache_dir)
   endif
 else " if !isdirectory(s:OUTLINE_CACHE_DIR)
-  if isdirectory(old_cache_dir)
-    if rename(old_cache_dir, s:OUTLINE_CACHE_DIR) != 0
-      let s:OUTLINE_CACHE_DIR = old_cache_dir
+  if isdirectory(s:old_cache_dir)
+    if rename(s:old_cache_dir, s:OUTLINE_CACHE_DIR) != 0
+      let s:OUTLINE_CACHE_DIR = s:old_cache_dir
       call unite#util#print_error("unite-outline: Couldn't rename the cache directory.")
     endif
   endif
 endif
-unlet old_cache_dir
+unlet s:old_cache_dir
 
 let s:FILECACHE_FORMAT_VERSION = 2
 let s:FILECACHE_FORMAT_VERSION_KEY = '__unite_outline_filecache_format_version__'
@@ -496,8 +496,8 @@ endif
 " Aliases
 
 " Define the default filetype aliases.
-for [ftype, aliases] in items(s:OUTLINE_ALIASES)
-  call call('s:define_filetype_aliases', [aliases, ftype])
+for [s:ftype, s:aliases] in items(s:OUTLINE_ALIASES)
+  call call('s:define_filetype_aliases', [s:aliases, s:ftype])
 endfor
 
 "-----------------------------------------------------------------------------
