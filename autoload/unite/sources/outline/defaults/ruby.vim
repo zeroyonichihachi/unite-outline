@@ -19,6 +19,9 @@ function! unite#sources#outline#defaults#ruby#outline_info(...)
     if path =~ '_spec\.rb$'
       " RSpec
       return 'ruby/rspec'
+    elseif path =~ 'Rakefile$' || path =~ '\.rake$'
+      " Rake
+      return 'ruby/rake'
     endif
   endif
   return s:outline_info
